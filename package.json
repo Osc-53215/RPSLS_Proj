@@ -1,0 +1,24 @@
+{
+  "name": "RPSLS",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "prompt-sync": "^4.2.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Osc-53215/RPSLS_Proj.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Osc-53215/RPSLS_Proj/issues"
+  },
+  "homepage": "https://github.com/Osc-53215/RPSLS_Proj#readme"
+}

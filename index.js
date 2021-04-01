@@ -14,6 +14,8 @@ class Game {
     runGame(){
         this.displayRules();
 
+        
+
         while(this.playerOne.score < 3 && this.playerTwo < 3){
             let playerOneTotal = this.playerOne.choosenGesture;
             let playerTwoTotal = this.playerTwo.choosenGesture;
@@ -63,13 +65,18 @@ class Player{
         this.name = name;
         this.selectedGesture = null;
         this.rpsls = ['rock', 'paper', 'scissors', 'lizard', 'spock'];
+
+        this.rockLoses = ['spock', 'paper'];
+        this.paperLoses = ['lizard', 'scissors'];
+        this.scissorsLoses = ['rock', 'spock'];
+        this.lizardLoses = ['rock', 'scissors'];
+        this.spockLoses = ['lizard', 'paper'];
     }
 }
 
 class Human extends Player{
     constructor(){
-        super();
-        this.selectedGesture;
+      super();
 
     }
 
@@ -92,6 +99,9 @@ class Human extends Player{
             case 'spock':
                 this.selectedGesture = this.rpsls[4];
                 break;
+            default:
+                console.log('Your input is incorrect, please try again. ');
+                break;
         }
 
     }
@@ -102,7 +112,7 @@ class Human extends Player{
 
 class Ai extends Player{
     constructor(){
-        super()
+        super();
 
     }
 
@@ -136,12 +146,6 @@ class Ai extends Player{
 
 
 }
-
-
-
-
-
-
 
 
 

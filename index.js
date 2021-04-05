@@ -1,5 +1,6 @@
 'use strict';
 
+
 const prompt = require('prompt-sync')();
 
 
@@ -14,13 +15,29 @@ class Game {
     runGame(){
         this.displayRules();
 
-        
+        let a = new Human();
+        let b = new Ai();
+        let c = new Gesture();
+
+        a.choosenGesture();
+        b.choosenGesturer();
+        c;
+
+
+        if(this.playerOne.selectedGesture== this.playerTwoTotal){
+
+        }
+        else if(this.playerOne.selectedGesture.includes(this.playerTwo.selectedGesture)){
+                console.log(this.playerOne + 'wins!')
+        }
+        else console.log(this.playerTwo.typeOf + " wins!");
+
 
         while(this.playerOne.score < 3 && this.playerTwo < 3){
-            let playerOneTotal = this.playerOne.choosenGesture;
-            let playerTwoTotal = this.playerTwo.choosenGesture;
+            this.playerOne.choosenGesture();
+            this.playerTwo.choosenGesturer();
 
-            if(playerOneTotal > playerTwoTotal){
+            if(this.playerOne.selectedGesture.typeOf === this.playerTwo.selectedGesture.typeOf){
                 console.log(this.playerOne.name + ' wins the round!');
                 this.playerOne.score++;
             }
@@ -39,10 +56,10 @@ class Game {
 
 
     displayRules() {
-        console.log("Welcome to the game of RPSLS!")
-        console.log("Two players will throw rock, paper, scissors, lizard or spock!")
-        console.log("The player with the dominant trait will win the round");
-        console.log("The first player to three points will win the game!");
+        console.log("Welcome to the game of RPSLS!\n")
+        console.log("Two players will throw rock, paper, scissors, lizard or spock!\n")
+        console.log("The player with the dominant trait will win the round\n");
+        console.log("The first player to three points will win the game!\n");
     }
 
     displayGameWinner() {
@@ -64,14 +81,14 @@ class Player{
         this.score = 0;
         this.name = name;
         this.selectedGesture = null;
-        this.rpsls = ['rock', 'paper', 'scissors', 'lizard', 'spock'];
-
-        this.rockLoses = ['spock', 'paper'];
-        this.paperLoses = ['lizard', 'scissors'];
-        this.scissorsLoses = ['rock', 'spock'];
-        this.lizardLoses = ['rock', 'scissors'];
-        this.spockLoses = ['lizard', 'paper'];
+        this.rock = new Gesture('Rock', ['Spock', 'Paper']);
+        this.paper = new Gesture('Paper', ['Lizard', 'Scossors']);
+        this.scissors = new Gesture('Scissors', ['Rock', 'Spock']);
+        this.lizard = new Gesture('Lizard', ['Rock', 'Scissors']);
+        this.spock = new Gesture('Spock'['Lizard', 'Paper']);
+        this.gestures = [this.rock, this.paper, this.scissors, this.lizard, this.spock];
     }
+
 }
 
 class Human extends Player{
@@ -81,27 +98,27 @@ class Human extends Player{
     }
 
     choosenGesture(){
-        let choosenGesture = prompt('Please select gesture ');
+        let pickedGestures = prompt('Please select gesture ');
 
-        switch(choosenGesture){
+        switch(pickedGestures){
             case 'rock':
-                this.selectedGesture = this.rpsls[0];
+                this.selectedGesture = this.gestures[0];
                 break;
             case 'paper':
-                this.selectedGesture = this.rpsls[1];
+                this.selectedGesture = this.gestures[1];
                 break;
             case 'scissors':
-                this.selectedGesture = this.rpsls[2];
+                this.selectedGesture = this.gestures[2];
                 break;
             case 'lizard':
-                this.selectedGesture = this.rpsls[3];
+                this.selectedGesture = this.gestures[3];
                 break;
             case 'spock':
-                this.selectedGesture = this.rpsls[4];
+                this.selectedGesture = this.gestures[4];
                 break;
             default:
                 console.log('Your input is incorrect, please try again. ');
-                break;
+                this.choosenGesture();
         }
 
     }
@@ -117,38 +134,46 @@ class Ai extends Player{
     }
 
     generateRandomNumber() {
-        let randomNumber = Math.floor(Math.random() * this.rockPaperScissorsLizardSpock) + 1;
+        let randomNumber = Math.floor(Math.random() * 4);
         return randomNumber;
       }
 
-    choosenGesture(){
+    choosenGesturer(){
         let choosenGesture;
 
         switch(choosenGesture){
             case 'rock':
-                this.selectedGesture = this.rpsls[this.generateRandomNumber]
+                this.selectedGesture = this.gestures[this.generateRandomNumber]
                 break;
             case 'paper':
-                this.selectedGesture = this.rpsls[this.generateRandomNumber];
+                this.selectedGesture = this.gestures[this.generateRandomNumber];
                 break;
             case 'scissors':
-                this.selectedGesture = this.rpsls[this.generateRandomNumber];
+                this.selectedGesture = this.gestures[this.generateRandomNumber];
                 break;
             case 'lizard':
-                this.selectedGesture = this.rpsls[this.generateRandomNumber];
+                this.selectedGesture = this.gestures[this.generateRandomNumber];
                 break;
             case 'spock':
-                this.selectedGesture = this.rpsls[this.generateRandomNumber];
+                this.selectedGesture = this.gestures[this.generateRandomNumber];
                 break;
-        }
+            
+        }return choosenGesture;
 
     }
 
 
 }
 
-
-
+class Gesture{
+    constructor(typeOf, losesToo){
+        this.typeOf = typeOf;
+        this.losesToo = losesToo;
+    }
+}
 
 let game = new Game();
 game.runGame();
+
+
+
